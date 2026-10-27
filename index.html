@@ -30,7 +30,7 @@ function render(){
  let arr=items.filter(t=>(tab==='archive'?isArchived(t):tab==='all'?!isArchived(t):tab==='today'?activeFor(t,d):occurs(t,d))&&(categoryFilter==='all'||validCategory(t.category)===categoryFilter));
  arr.sort((a,b)=>Number(!!b.top)-Number(!!a.top)||(a.time||'99:99').localeCompare(b.time||'99:99')||a.date.localeCompare(b.date));
  $('tasks').replaceChildren();
- if(!arr.length)$('tasks').textContent=tab==='archive'?'Noch keine erledigten Aufgaben.':'Keine Aufgaben – Platz für Neues ✨';
+ if(!arr.length)$('tasks').textContent=categoryFilter!=='all'?'Keine Aufgaben in dieser Kategorie vorhanden.':tab==='archive'?'Noch keine erledigten Aufgaben.':'Für diese Ansicht sind noch keine Aufgaben eingetragen.';
  arr.forEach(t=>{
   let x=viewDate(t),completed=isArchived(t)||done(t,x);
   let el=document.createElement('div');el.className='task'+(completed?' done':'');
